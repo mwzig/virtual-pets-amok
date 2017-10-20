@@ -28,7 +28,7 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 	public int getLitterBoxWasteLevel() {
 		return litterBoxWasteLevel;
 	}
-	
+
 	@Override
 	public void eat() {
 		hungerLevel = 0;
@@ -43,11 +43,11 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 	public void generateWaste(int wasteAmt) {
 		litterBoxWasteLevel += wasteAmt;
 	}
-	
+
 	@Override
 	public void haveWasteCleanedUp() {
 		litterBoxWasteLevel = 0;
-		
+
 	}
 
 	// For the tick() method, we need to return the amount of excrement for a cat.
@@ -80,7 +80,5 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 				+ excrementAmt);
 
 	}
-
-	
 
 }

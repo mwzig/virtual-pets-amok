@@ -22,13 +22,14 @@ public class CatTest {
 	
 	@Test
 	public void generateWasteToOneLitterBox() {
-		OrganicCat underTest = new OrganicCat("fluffy", "white cat");
-		underTest.generateWaste(5);
-		int check1 = underTest.getLitterBoxWasteLevel();
+		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
+		cat1.generateWaste(5);
+		int check1 = cat1.getLitterBoxWasteLevel();
 		assertEquals(check1, 5);
-		OrganicCat underTest2 = new OrganicCat("muffy", "grey cat");
-		underTest2.generateWaste(15);
-		check1 = underTest.getLitterBoxWasteLevel();
+		OrganicCat cat2 = new OrganicCat("muffy", "grey cat");
+		cat2.generateWaste(15);
+		// test by using the first object
+		check1 = cat1.getLitterBoxWasteLevel();
 		assertEquals(20, check1);
 
 	}
