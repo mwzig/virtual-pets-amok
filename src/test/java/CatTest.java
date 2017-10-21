@@ -1,5 +1,4 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -27,21 +26,48 @@ public class CatTest {
 	}
 
 	@Test
-	public void haveWasteCleanedUpShouldIncreaseHappinessByFive() {
+	public void tickMethodIncreasesHungerByFive() {
 		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
-		int hpLevelB4 = cat1.getHappinessLevel();
-		cat1.haveWasteCleanedUp();
-		int hpLevelAfter = cat1.getHappinessLevel();
+		int hpLevelB4 = cat1.getHungerLevel();
+		cat1.tick();
+		int hpLevelAfter = cat1.getHungerLevel();
 		assertEquals(5, (hpLevelAfter - hpLevelB4));
 	}
 
 	@Test
-	public void haveWasteCleanedUpShouldIncreaseHealthByFive() {
+	public void tickMethodIncreasesThirstByFive() {
 		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
-		int healthLevelB4 = cat1.getHealthLevel();
+		int hpLevelB4 = cat1.getThirstLevel();
+		cat1.tick();
+		int hpLevelAfter = cat1.getThirstLevel();
+		assertEquals(5, (hpLevelAfter - hpLevelB4));
+	}
+
+	@Test
+	public void tickMethodDecreasesActivityByFive() {
+		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
+		int hpLevelB4 = cat1.getActivityLevel();
+		cat1.tick();
+		int hpLevelAfter = cat1.getActivityLevel();
+		assertEquals(-5, (hpLevelAfter - hpLevelB4));
+	}
+
+	
+	@Test
+	public void haveWasteCleanedUpShouldChangeLitterBoxClean() {
+		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
+		cat1.setLitterBoxStatus(false);
+		assertFalse(cat1.getLitterBoxStatus());
 		cat1.haveWasteCleanedUp();
-		int healthLevelAfter = cat1.getHealthLevel();
-		assertEquals(5, (healthLevelAfter - healthLevelB4));
+		assertTrue(cat1.getLitterBoxStatus());
+	}
+
+	@Test
+	public void playIncreasesActivityLevelTo75() {
+		OrganicCat cat1 = new OrganicCat("fluffy", "white cat", 5,5,5,5,5,5);
+		assertEquals(5, cat1.getActivityLevel());
+		cat1.play();
+		assertEquals(75, cat1.getActivityLevel());
 	}
 
 }
