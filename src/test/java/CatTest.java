@@ -69,6 +69,43 @@ public class CatTest {
 		cat1.play();
 		assertEquals(75, cat1.getActivityLevel());
 	}
+	
+	public void correctHappinessStatsAfterFiveTicks() {
+		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
+		for (int i = 1; i <=5; i++) {
+			cat1.tick();
+		}
+		assertEquals(30, cat1.getHungerLevel());
+		assertEquals(30, cat1.getThirstLevel());
+		assertEquals(50, cat1.getActivityLevel());
+		assertEquals(100, cat1.getHappinessLevel());
+		assertEquals(100, cat1.getHealthLevel());
+	}
+
+	public void correctHappinessStatsAfterTenTicks() {
+		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
+		for (int i = 1; i <=10; i++) {
+			cat1.tick();
+		}
+		assertEquals(55, cat1.getHungerLevel());
+		assertEquals(55, cat1.getThirstLevel());
+		assertEquals(25, cat1.getActivityLevel());
+		assertEquals(40, cat1.getHappinessLevel());
+		assertEquals(100, cat1.getHealthLevel());
+	}
+
+	@Test
+	public void correctHappinessStatsAfterFifteenTicks() {
+		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
+		for (int i = 1; i <=15; i++) {
+			cat1.tick();
+		}
+		assertEquals(80, cat1.getHungerLevel());
+		assertEquals(80, cat1.getThirstLevel());
+		assertEquals(0, cat1.getActivityLevel());
+		assertEquals(20, cat1.getHappinessLevel());
+		assertEquals(15, cat1.getHealthLevel());
+	}
 
 }
 /*

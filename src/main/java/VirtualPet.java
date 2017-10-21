@@ -16,8 +16,8 @@ public abstract class VirtualPet {
 	public VirtualPet(String name, String description) {
 		this.name = name;
 		this.description = description;
-		this.happinessLevel = 5;
-		this.healthLevel = 5;
+		this.happinessLevel = 100;
+		this.healthLevel = 100;
 	}
 
 	abstract int tick();

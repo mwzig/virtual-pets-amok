@@ -105,7 +105,6 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 		// Now consider the happiness level based on 20% health, 20% hunger, 20% thirst,
 		// 20% activity, and 20% litter box state
 		if (healthLevel >= 50) {
-			System.out.println("health+20");
 			happinessLevel += 20;
 		}
 		if (hungerLevel <= 50) {

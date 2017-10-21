@@ -64,7 +64,7 @@ public class VirtualPetShelterCatTestApp {
 			if (shelterPet instanceof OrganicCat)  {
 				OrganicCat shelterCat = (OrganicCat)(shelterPet);
 	
-				if (!shelterCat.isLitterBoxClean())  {
+				if (!shelterCat.getLitterBoxStatus())  {
 					litterBoxStatus = "Dirty";
 				}
 				
