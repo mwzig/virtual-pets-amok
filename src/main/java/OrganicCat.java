@@ -28,8 +28,6 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 	// This overrides the play() method in the parent class - VirtualPet
 	@Override
 	public void play() {
-		happinessLevel += 5;
-		healthLevel += 5;
 		activityLevel = 75;
 	}
 
@@ -65,6 +63,15 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 	}
 
 	public void determineHealthAndHappinessLevels() {
+		
+		
+		if ((hungerLevel <= 50) && (thirstLevel <= 50) && (activityLevel >= 50) && litterBoxClean) {
+			happinessLevel = 50;
+			healthLevel = 50;
+			System.out.println("here");
+		}
+			
+		
 		if (hungerLevel >= 75) {
 			healthLevel -=5;
 		}
@@ -72,11 +79,6 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 			healthLevel -=5;
 		}
 		if (activityLevel < 0) {
-			healthLevel -=5;
-		}
-		if (!litterBoxClean) {
-			healthLevel +=5;
-		} else {
 			healthLevel -=5;
 		}
 		if (happinessLevel < 0) {
@@ -92,15 +94,13 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 	@Override
 	public void eat() {
 		hungerLevel = 0;
-		happinessLevel += 5;
-		healthLevel += 5;
+		
 	}
 
 	@Override
 	public void drink() {
 		thirstLevel = 0;
-		happinessLevel += 5;
-		healthLevel += 5;
+		
 	}
 
 	@Override
@@ -110,16 +110,11 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 
 	@Override
 	public void haveWasteCleanedUp() {
-		happinessLevel += 10;
-		healthLevel += 10;
+		happinessLevel += 20;
+		healthLevel += 40;
 		litterBoxClean = true;
 	}
 
-	@Override
-	public String toString() {
-		return (super.toString() + " HungerLevel: " + hungerLevel + " ThirstLevel " + thirstLevel + " ExcrementAmt "
-				+ excrementAmount);
-	}
 
 	public boolean isLitterBoxClean() {
 		return litterBoxClean;
@@ -138,9 +133,29 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 	// We know when the litter box is clean, because the OrganicPet interface requires
 	// us to implement a method "haveWasteCleanedUp".  When that method is called,
 	// it resets the litterBoxClean to true.
-
+	
 	public void setLitterBoxDirty() {
-		this.litterBoxClean = false;		
+		this.litterBoxClean = false;
+		happinessLevel -=20;
+		healthLevel -=40;
+	}
+
+	@Override
+	public String toString() {
+		return (super.toString() + " HungerLevel: " + hungerLevel + " ThirstLevel " + thirstLevel + " ExcrementAmt "
+				+ excrementAmount);
+	}
+
+	public int getHungerLevel() {
+		return hungerLevel;
+	}
+
+	public int getThirstLevel() {
+		return thirstLevel;
+	}
+
+	public int getActivityLevel() {
+		return activityLevel;
 	}
 
 }
