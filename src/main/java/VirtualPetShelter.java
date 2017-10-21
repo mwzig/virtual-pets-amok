@@ -28,7 +28,6 @@ public class VirtualPetShelter {
 	}
 
 	public void feedPets() {
-
 		for (VirtualPet eachPet : getAllPets()) {
 			if (eachPet instanceof OrganicPet) {
 				((OrganicPet) eachPet).eat();
@@ -37,7 +36,6 @@ public class VirtualPetShelter {
 	}
 
 	public void waterPets() {
-
 		for (VirtualPet eachPet : getAllPets()) {
 			if (eachPet instanceof OrganicPet) {
 				((OrganicPet) eachPet).drink();
@@ -46,17 +44,13 @@ public class VirtualPetShelter {
 	}
 
 	public void tick() {
-
 		int wasteAmount;
 		for (VirtualPet eachPet : getAllPets()) {
 			wasteAmount = eachPet.tick();
 			if (eachPet instanceof OrganicCat) {
-				System.out.println("organic cat");
-				System.out.println("waste = " + wasteAmount);
 				litterBoxWasteLevel += wasteAmount;
 			}
 		}
-
 	}
 
 	// If a name is supplied that does not exist, the Virtual Pet object "returned"
@@ -67,36 +61,36 @@ public class VirtualPetShelter {
 		VirtualPet aPet = pets.get(name);
 		if (aPet != null) {
 			if (aPet instanceof Dog) {
-				((Dog)aPet).walk();
+				((Dog) aPet).walk();
 			}
-			
 		}
-
 	}
 
 	// If a name is supplied that does not exist, the Virtual Pet object "returned"
 	// will be null. Just to be safe, check it for not null before using it,
 	// otherwise we could potentially crash with a null pointer exception.
 	public void playWithAPet(String name) {
-
 		VirtualPet aPet = pets.get(name);
 		if (aPet != null) {
 			aPet.play();
 		}
-
 	}
 
-	
-	// If a name is supplied that does not exist, the Virtual Pet object "returned"
-	// will be null. Just to be safe, check it for not null before using it,
-	// otherwise we could potentially crash with a null pointer exception.
-	public void cleanCage(String name) {
-
-		VirtualPet aPet = pets.get(name);
-		if (aPet != null) {
-			((OrganicPet)aPet).haveWasteCleanedUp();
+	public void cleanCages() {
+		for (VirtualPet aPet : getAllPets()) {
+			if (aPet instanceof OrganicDog) {
+				((OrganicCat) aPet).haveWasteCleanedUp();
+			}
 		}
+	}
 
+	public void emptyLitterBox() {
+		litterBoxWasteLevel = 0;
+		for (VirtualPet aPet : getAllPets()) {
+			if (aPet instanceof OrganicCat) {
+				((OrganicCat) aPet).haveWasteCleanedUp();
+			}
+		}
 	}
 
 	public int getNumberOfPets() {
@@ -105,10 +99,6 @@ public class VirtualPetShelter {
 
 	public int getLitterBoxWasteLevel() {
 		return litterBoxWasteLevel;
-	}
-
-	public void setLitterBoxWasteLevel(int litterBoxWasteLevel) {
-		this.litterBoxWasteLevel = litterBoxWasteLevel;
 	}
 
 }
