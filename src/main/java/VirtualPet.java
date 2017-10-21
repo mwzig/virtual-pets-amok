@@ -34,4 +34,28 @@ public abstract class VirtualPet {
 				+ " " + " HappinessLevel: " + happinessLevel 
 				+ " HealthLevel: " + healthLevel; 
 	}
+
+	public int getHappinessLevel() {
+		return happinessLevel;
+	}
+
+	public void setHappinessLevel(int happinessLevel) {
+		this.happinessLevel = happinessLevel;
+	}
+
+	public int getHealthLevel() {
+		return healthLevel;
+	}
+
+	public void setHealthLevel(int healthLevel) {
+		this.healthLevel = healthLevel;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
 }

@@ -4,46 +4,49 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 
 	protected int hungerLevel;
 	private int thirstLevel;
-	private int excrementAmount;
+	private int excrementAmt;
+
+	// The litter box is shared by ALL cats, so it is a static variable
+	// 0 = just cleaned, >=50 indicates very dirty
+	private static int litterBoxWasteLevel;
 
 	public OrganicCat(String name, String desc) {
 		super(name, desc);
 		this.hungerLevel = 5;
 		this.thirstLevel = 5;
-		this.excrementAmount = 1;
+		this.excrementAmt = 1;
 	}
 
 	public OrganicCat(String name, String desc, int happinessLevel, int healthLevel, int hungerLevel, int thirstLevel,
-			int exrementAmount) {
+			int exrementAmt) {
 		super(name, desc, healthLevel, happinessLevel);
 		this.hungerLevel = hungerLevel;
 		this.thirstLevel = thirstLevel;
-		this.excrementAmount = excrementAmount;
+		this.excrementAmt = excrementAmt;
+	}
+
+	public int getLitterBoxWasteLevel() {
+		return litterBoxWasteLevel;
 	}
 
 	@Override
 	public void eat() {
 		hungerLevel = 0;
-		happinessLevel++;
-		healthLevel++;
 	}
 
 	@Override
 	public void drink() {
 		thirstLevel = 0;
-		happinessLevel++;
-		healthLevel++;
 	}
 
 	@Override
-	public int generateWaste() {
-		return excrementAmount;
+	public void generateWaste(int wasteAmt) {
+		litterBoxWasteLevel += wasteAmt;
 	}
 
 	@Override
 	public void haveWasteCleanedUp() {
-		happinessLevel += 5;
-		healthLevel += 5;
+		litterBoxWasteLevel = 0;
 
 	}
 
@@ -61,19 +64,24 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 
 		hungerLevel += 5;
 		thirstLevel += 5;
-		return generateWaste();
-
+		return excrementAmt;
+		
 		/*
-		 * Random random = new Random(); int randomNbr = random.nextInt(5); if
-		 * (randomNbr == 3) { return excrementAmt; } else { return 0; }
-		 */
+		Random random = new Random();
+		int randomNbr = random.nextInt(5);
+		if (randomNbr == 3) {
+			return excrementAmt;
+		} else {
+			return 0;
+		}
+		*/
 
 	}
 
 	@Override
 	public String toString() {
 		return (super.toString() + " HungerLevel: " + hungerLevel + " ThirstLevel " + thirstLevel + " ExcrementAmt "
-				+ excrementAmount);
+				+ excrementAmt);
 
 	}
 
