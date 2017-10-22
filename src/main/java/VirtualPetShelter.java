@@ -97,7 +97,7 @@ public class VirtualPetShelter {
 	}
 
 	public int getLitterBoxWasteLevel() {
-		return litterBoxWasteLevel;
+		return catBox.getWasteAmount();
 	}
 
 }

@@ -13,6 +13,10 @@ public class LitterBox {
 			return false;
 		}
 	}
+	
+	public int getWasteAmount() {
+		return wasteAmount;
+	}
 
 	public void addWaste(int amount) {
 		wasteAmount += amount;

@@ -17,7 +17,7 @@ public class LitterBoxObjectTest {
 			catBox.addWaste(wasteAmt);
 		}
 		
-		System.out.println("The amount of waste in the litter box is " + catBox.litterBoxWasteAmount);
+		System.out.println("The amount of waste in the litter box is " + catBox.getWasteAmount());
 
 		
 	}

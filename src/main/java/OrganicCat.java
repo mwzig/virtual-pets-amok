@@ -18,7 +18,7 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 
 	public OrganicCat(String name, String desc, int happinessLevel, int healthLevel, int hungerLevel, int thirstLevel,
 			int exrementAmount) {
-		super(name, desc, healthLevel, happinessLevel);
+		super(name, desc, happinessLevel, healthLevel);
 		this.hungerLevel = hungerLevel;
 		this.thirstLevel = thirstLevel;
 		this.excrementAmount = excrementAmount;
@@ -27,7 +27,7 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 
 	public OrganicCat(String name, String desc, int happinessLevel, int healthLevel, int hungerLevel, int thirstLevel,
 			int exrementAmount, int activityLevel) {
-		super(name, desc, healthLevel, happinessLevel);
+		super(name, desc, happinessLevel, healthLevel);
 		this.hungerLevel = hungerLevel;
 		this.thirstLevel = thirstLevel;
 		this.excrementAmount = excrementAmount;
@@ -40,16 +40,7 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 		activityLevel = 75;
 	}
 
-	// For the tick() method, we need to return the amount of excrement for a cat.
-	// The calling method then adds this to the litter box.
-	// There is some commented out code below regarding this logic.
-	// The comments below explain the commented out code.
-	// For purposes of this project, assume that the cat does not always need to
-	// use the litter box each time tick() is called. In order to figure out when
-	// the cat generates waste/excrement, use a random number between 1 and 5.
-	// If the random number generated matches 3, then generate waste (return the
-	// cat's excrement amount).
-
+	
 	// This overrides the abstract tick() method in the parent class - VirtualPet
 	@Override
 	int tick() {
@@ -59,31 +50,14 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 		activityLevel -= 5;
 		determineHealthAndHappinessLevels();
 		return generateWaste();
-
-		// potentially implement this code if we do not want to generate waste
-		// each tick.
-		// Random random = new Random();
-		// int randomNbr = random.nextInt(5);
-		// if (randomNbr == 3) {
-		// return excrementAmt; }
-		// else {
-		// return 0;
-		// }
-
 	}
 
+	// we need a special tick method that can use the litter box status as part of its
+	// calculation for determining health and happiness.
 	public int tick(LitterBox catBox) {
 
-		hungerLevel += 5;
-		thirstLevel += 5;
-		activityLevel -= 5;
-		System.out.println(catBox.getStatus());
-		// set this variable so that we can use the litter box status to determine 
-		// health and happiness
 		litterBoxClean = catBox.getStatus();
-		determineHealthAndHappinessLevels();
-
-		return generateWaste();
+		return tick();
 	}
 
 	// The requirments are quoted below:
