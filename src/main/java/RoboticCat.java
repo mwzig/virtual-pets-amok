@@ -35,7 +35,7 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 	@Override
 	public void play() {
 		happinessLevel = MAX_HAPPINESS_LEVEL;
-		if (currentOilLevel != 0) { 
+		if (currentOilLevel != 0) {
 			currentOilLevel -= 5;
 		}
 	}
@@ -51,7 +51,6 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 		health = (currentOilLevel / BEST_OIL_LEVEL);
 		health *= 100;
 		healthLevel = health.intValue();
-
 
 		// Overall health influences happiness.
 		if (healthLevel <= 50) {

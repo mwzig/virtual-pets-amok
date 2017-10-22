@@ -43,6 +43,14 @@ public class VirtualPetShelter {
 		}
 	}
 
+	public void oilRoboticPets() {
+		for (VirtualPet eachPet : getAllPets()) {
+			if (eachPet instanceof RoboticPet) {
+				((RoboticPet) eachPet).addOil();
+			}
+		}
+	}
+
 	public void tick() {
 		int wasteAmount;
 		for (VirtualPet aPet : getAllPets()) {

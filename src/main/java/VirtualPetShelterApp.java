@@ -8,8 +8,12 @@ public class VirtualPetShelterApp {
 		VirtualPetShelter myShelter = new VirtualPetShelter();
 		myShelter.addPet(new OrganicCat("Fluffy", "the very furry cat"));
 		myShelter.addPet(new OrganicCat("Buffy", "the vampire cat"));
-		myShelter.addPet(new OrganicDog("Duffy", "the silly dog"));
+
+		myShelter.addPet(new OrganicDog("Fido", "the silly dog"));
 		myShelter.addPet(new OrganicDog("Rufus", "watch out- he bites"));
+
+		myShelter.addPet(new RoboticCat("Henry", "large, creaky fellow"));
+		myShelter.addPet(new RoboticCat("Harriet", "small and sneaky"));
 
 		displayWelcomeMessage();
 		handleVolunteerActions(myShelter);
@@ -60,65 +64,40 @@ public class VirtualPetShelterApp {
 				System.out.println("You cleaned the litter box!  Extra pizza for you! Thank you!");
 				break;
 			case "7":
+				myShelter.oilRoboticPets();
+				System.out.println("You oiled the robotic pets! Thank you!");
+				break;
+			case "8":
 				System.out.println("Terrific!  You'd like to adopt a pet.  Please choose one: \n");
 				handlePetAdoption(myShelter);
 				break;
-			case "8":
+			case "9":
 				System.out.println("Welcome! You'd like to admit a pet. We can help with that.\n");
 				handlePetAdmission(myShelter);
 				break;
-			case "9":
+			case "10":
 				System.out.println("You loved our pizza!\n\n");
 				break;
-			case "10":
+			case "11":
 				System.out.println("Thanks for playing the Virtual Pet Shelter game!");
 				break;
 			}
 			myShelter.tick();
 
-		} while (!userOption.equals("10"));
+		} while (!userOption.equals("11"));
 		input.close();
 
 	}
 
-	/*
-	 * public static void displayPetStatusOld(VirtualPetShelter myShelter) {
-	 * 
-	 * String needsToGoOut = "(Not Yet)"; String cageStatus = "Clean";
-	 * 
-	 * System.out.println("This is the status of your pets:\n"); System.out.
-	 * println("Name           |Hunger  |Thirst  |Activity Level |Needs to Go Out|Cage"
-	 * ); System.out.println(
-	 * "---------------|--------|--------|---------------|---------------|----------"
-	 * );
-	 * 
-	 * Collection<VirtualPet> shelterPets = myShelter.getAllPets();
-	 * 
-	 * for (VirtualPet shelterPet : shelterPets) { if (shelterPet.getNeedsToPee() ||
-	 * shelterPet.getNeedsToPoop()) { needsToGoOut = "Yes!"; } else { needsToGoOut =
-	 * "(Not Yet)"; } if (shelterPet.getMadeAMess()) { cageStatus = "Dirty"; } else
-	 * { cageStatus = "Clean"; } System.out.printf("%-15s", shelterPet.getName());
-	 * System.out.print("|"); System.out.printf("%-8d",
-	 * shelterPet.getHungerLevel()); System.out.print("|");
-	 * System.out.printf("%-8d", shelterPet.getThirstLevel());
-	 * System.out.print("|"); System.out.printf("%-15d",
-	 * shelterPet.getActivityLevel()); System.out.print("|");
-	 * System.out.printf("%-15s", needsToGoOut); System.out.print("|");
-	 * System.out.printf("%-10s", cageStatus); System.out.println();
-	 * 
-	 * } // end for loop
-	 * 
-	 * } // end displayPetStatus()
-	 * 
-	 */
 	public static void displayPetStatus(VirtualPetShelter myShelter) {
 
 		String litterBoxStatus = "Clean";
 		String cageStatus = "Clean";
+		String oilLevel = "";
 
 		System.out.println("This is the status of your Virtual Pets:\n");
-		System.out.println("Name           |Hunger  |Thirst  |Activity Level |Litter Box/Cage |Happiness |Health");
-		System.out.println("---------------|--------|--------|---------------|----------------|----------|-------");
+		System.out.println("Name                     |Hunger  |Thirst  |Activity Level |Litter Box/Cage |Happiness |Health |Oil Level");
+		System.out.println("-------------------------|--------|--------|---------------|----------------|----------|-------|-------------");
 
 		Collection<VirtualPet> shelterPets = myShelter.getAllPets();
 
@@ -139,15 +118,22 @@ public class VirtualPetShelterApp {
 				}
 				displayOrganicDogStatus(shelterDog, cageStatus);
 			} // end of Organic Dog
-			
+
+			if (shelterPet instanceof RoboticCat) {
+				RoboticCat shelterCat = (RoboticCat) (shelterPet);
+				if (shelterCat.needsOil()) {
+					oilLevel = "Needs Oil";
+				}
+				displayRoboticCatStatus(shelterCat, oilLevel);
+			} // end of OrganicCat
 
 		} // end for loop
 
 	} // end displayPetStatus()
 
 	public static void displayOrganicCatStatus(OrganicCat shelterCat, String litterBoxStatus) {
-		
-		System.out.printf("%-15s", shelterCat.getName() + " (cat)");
+
+		System.out.printf("%-25s", shelterCat.getName() + " (cat)");
 		System.out.print("|");
 		System.out.printf("%-8d", shelterCat.getHungerLevel());
 		System.out.print("|");
@@ -159,13 +145,15 @@ public class VirtualPetShelterApp {
 		System.out.print("|");
 		System.out.printf("%-10d", shelterCat.getHappinessLevel());
 		System.out.print("|");
-		System.out.printf("%-10d", shelterCat.getHealthLevel());
+		System.out.printf("%-7d", shelterCat.getHealthLevel());
+		System.out.print("|");
+		System.out.printf("%-10s", "");
 		System.out.println();
-	} 
+	}
 
 	public static void displayOrganicDogStatus(OrganicDog shelterDog, String cageStatus) {
-		
-		System.out.printf("%-15s", shelterDog.getName() + " (dog)");
+
+		System.out.printf("%-25s", shelterDog.getName() + " (dog)");
 		System.out.print("|");
 		System.out.printf("%-8d", shelterDog.getHungerLevel());
 		System.out.print("|");
@@ -177,9 +165,32 @@ public class VirtualPetShelterApp {
 		System.out.print("|");
 		System.out.printf("%-10d", shelterDog.getHappinessLevel());
 		System.out.print("|");
-		System.out.printf("%-10d", shelterDog.getHealthLevel());
+		System.out.printf("%-7d", shelterDog.getHealthLevel());
+		System.out.print("|");
+		System.out.printf("%-10s", "");
 		System.out.println();
-	} 
+	}
+
+	public static void displayRoboticCatStatus(RoboticCat shelterCat, String oilLevel) {
+		
+		System.out.printf("%-25s", shelterCat.getName() + " (Robotic-Cat)");
+		System.out.print("|");
+		System.out.printf("%-8s", ""); // hunger level n/a here
+		System.out.print("|");
+		System.out.printf("%-8s", ""); // thirst level n/a here
+		System.out.print("|");
+		System.out.printf("%-15s", ""); // activity level n/a here
+		System.out.print("|");
+		System.out.printf("%-16s", ""); // lilitterBoxStatus);
+		System.out.print("|");
+		System.out.printf("%-10d", shelterCat.getHappinessLevel());
+		System.out.print("|");
+		System.out.printf("%-7d", shelterCat.getHealthLevel());
+		System.out.print("|");
+		System.out.printf("%-10s", shelterCat.getCurrentOilLevel() + oilLevel);
+		System.out.println();
+	}
+
 	public static void displayMainMenu() {
 
 		System.out.println("\nWhat would you like to do next?\n");
@@ -189,10 +200,11 @@ public class VirtualPetShelterApp {
 		System.out.println("\t4. Play with a pet");
 		System.out.println("\t5. Clean the dog cages");
 		System.out.println("\t6. Clean the litter box");
-		System.out.println("\t7. Adopt a pet");
-		System.out.println("\t8. Admit a pet");
-		System.out.println("\t9. Eat pizza");
-		System.out.println("\t10. Quit");
+		System.out.println("\t7. Oil the robotic pets");
+		System.out.println("\t8. Adopt a pet");
+		System.out.println("\t9. Admit a pet");
+		System.out.println("\t10. Eat pizza");
+		System.out.println("\t11. Quit");
 	}
 
 	public static void displayPetNamesAndDescriptions(VirtualPetShelter myShelter) {
