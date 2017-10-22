@@ -98,6 +98,7 @@ public class VirtualPetShelterApp {
 		String cageStatus = "Clean";
 		String oilLevel = "";
 
+		System.out.println("The shelter's litter box waste level is: " + myShelter.getLitterBoxWasteLevel());
 		System.out.println("This is the status of your Virtual Pets:\n");
 		System.out.println(
 				"Name                     |Hunger  |Thirst  |Activity Level |Litter Box/Cage |Happiness |Health |Oil Level");

@@ -30,7 +30,7 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 
 	// overrides the VirtualPet's method
 	@Override
-	int tick() {
+	public int tick() {
 		determineHealthAndHappinessLevels();
 		return 0;
 	}

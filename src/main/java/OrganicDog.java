@@ -1,4 +1,3 @@
-
 public class OrganicDog extends Dog implements OrganicPet {
 
 	// attributes
@@ -9,8 +8,7 @@ public class OrganicDog extends Dog implements OrganicPet {
 	private boolean needsToPee;
 	private boolean needsToPoop;
 	private boolean madeAMess;
-	
-	
+
 	public OrganicDog(String name, String desc) {
 		super(name, desc);
 		this.hungerLevel = 5;
@@ -45,17 +43,8 @@ public class OrganicDog extends Dog implements OrganicPet {
 		this.needsToPoop = needsToPoop;
 		this.madeAMess = madeAMess;
 	}
-	
-	
+
 	// getters
-	public String getName() {
-		return name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
 	public int getHungerLevel() {
 		return hungerLevel;
 	}
@@ -80,59 +69,18 @@ public class OrganicDog extends Dog implements OrganicPet {
 		return madeAMess;
 	}
 
-	String getStatus() {
-		String status = "";
-		boolean needsSomething = false;
-		if (hungerLevel >= 50) {
-			needsSomething = true;
-			status += name + " is hungry! ";
-		}
-		if (thirstLevel >= 50) {
-			needsSomething = true;
-			status += name + " is thirsty! ";
-		}
-		if ((activityLevel < 33) || needsToPee || needsToPoop) {
-			needsSomething = true;
-			status += name + " needs a walk, please. ";
-			status += "\n(";
-			if (activityLevel < 33) {
-				status += "Needs exercise! ";
-			}
-			if (needsToPee) {
-				status += "Needs to pee! ";
-			}
-			if (needsToPoop) {
-				status += "Needs to poop! ";
-			}
-			if (madeAMess) {
-				status += "Made a mess!";
-			}
-
-			status += ")";
-		}
-
-		if (hungerLevel >= 50 && thirstLevel >= 50 && activityLevel < 33 && needsToPee && needsToPoop) {
-			status += "\nUh-Oh!!!  You have not been taking good care of " + this.name + ".";
-		} else {
-			if (!needsSomething) {
-				status += "Great Job! ";
-				status += this.name + " does not need anything right now! You are taking wonderful care of " + this.name
-						+ "!";
-			}
-		}
-		return status;
-	}
-
 	@Override
 	public int tick() {
 		hungerLevel += 5;
 		thirstLevel += 5;
-		activityLevel -= 5;
+		if (!(activityLevel == 0)) {
+			activityLevel -= 5;
+		}
 		if (activityLevel < 33 && needsToPee && needsToPoop) {
 			madeAMess = true;
 		}
 		determineHealthAndHappinessLevels();
-		return excrementAmount;
+		return generateWaste();
 	}
 
 	@Override
@@ -172,85 +120,89 @@ public class OrganicDog extends Dog implements OrganicPet {
 	// clean or dirty based on needsToPee and needsToPoop and activity level.
 	// Assume the pet goes out while the cage is being cleaned.
 	@Override
-	public  void haveWasteCleanedUp() {
+	public void haveWasteCleanedUp() {
 		madeAMess = false;
 		needsToPee = false;
 		needsToPoop = false;
+	}
+
+	// The dog only makes a mess in its cage under the worst of circumstances,
+	// therefore, return 0 if they did not have an "accident", otherwise return
+	// the waste amount. The calling program does not currently use this for
+	// dogs, but it may in the future.
+	@Override
+	public int generateWaste() {
+		if (madeAMess) {
+			return excrementAmount;
+		} else {
+			return 0;
+		}
+	}
+
+	// The requirements are quoted below:
+	// "all pets lose health if their happiness drops too low"
+	// "a variable representing overall health that is updated as a result
+	// of other attributes moving in a negative or positive direction, influencing
+	// happiness"
+	private void determineHealthAndHappinessLevels() {
+
+		healthLevel = 0;
+		happinessLevel = 0;
+		// First, determine health based on hunger, thirst, activity level and litter
+		// box state.
+		// Note that hunger Level is 0 after being fed, 50 indicates hungry, 75
+		// extremely hungry.
+		// Thirst is 0 after drinking, 50 indicates thirsty, 75 extremely thirsty.
+		// Activity level is initialized by default to 75, and is reset to 75 after
+		// playing.
+		// Activity level of less than 25 is an issue.
+		if (hungerLevel <= 75) {
+			healthLevel += 25;
+		}
+		if (thirstLevel <= 75) {
+			healthLevel += 25;
+		}
+		if (activityLevel >= 10) {
+			healthLevel += 25;
+		}
+		if (!madeAMess) {
+			healthLevel += 25;
+		}
+
+		// Now consider the happiness level based on 20% health, 20% hunger, 20% thirst,
+		// 20% activity, and 20% litter box state
+		if (healthLevel >= 50) {
+			happinessLevel += 20;
+		}
+		if (hungerLevel <= 50) {
+			happinessLevel += 20;
+		}
+		if (thirstLevel <= 50) {
+			happinessLevel += 20;
+		}
+		if (activityLevel >= 35) {
+			happinessLevel += 20;
+		}
+		if (!madeAMess) {
+			happinessLevel += 20;
+		}
+
+		// If the pet is really unhappy, then take a little away from the health.
+		// But only if healthLevel is not equal to 0, because we do not want it
+		// to get to a negative level.
+		if (healthLevel != 0) {
+			if (happinessLevel <= 25) {
+				healthLevel -= 10;
+			}
+		}
 
 	}
 
+	@Override
 	public String toString() {
 		String returnString = name + ";" + description + ";" + hungerLevel + ";" + thirstLevel + ";" + activityLevel
 				+ ";" + needsToPee + ";" + needsToPoop + ";" + madeAMess;
 		return returnString;
 	}
 
-	@Override
-	public int generateWaste() {
-		return excrementAmount;
-	}
-
-	// The requirments are quoted below:
-		// "all pets lose health if their happiness drops too low"
-		// "a variable representing overall health that is updated as a result
-		// of other attributes moving in a negative or positive direction, influencing
-		// happiness"
-		public void determineHealthAndHappinessLevels() {
-
-			healthLevel = 0;
-			happinessLevel = 0;
-			// First, determine health based on hunger, thirst, activity level and litter
-			// box state.
-			// Note that hunger Level is 0 after being fed, 50 indicates hungry, 75
-			// extremely hungry.
-			// Thirst is 0 after drinking, 50 indicates thirsty, 75 extremely thirsty.
-			// Activity level is initialized by default to 75, and is reset to 75 after
-			// playing.
-			// Activity level of less than 25 is an issue.
-			if (hungerLevel <= 75) {
-				healthLevel += 25;
-			}
-			if (thirstLevel <= 75) {
-				healthLevel += 25;
-			}
-			if (activityLevel >= 10) {
-				healthLevel += 25;
-			}
-			if (!madeAMess) {
-				healthLevel += 25;
-			}
-
-			// Now consider the happiness level based on 20% health, 20% hunger, 20% thirst,
-			// 20% activity, and 20% litter box state
-			if (healthLevel >= 50) {
-				happinessLevel += 20;
-			}
-			if (hungerLevel <= 50) {
-				happinessLevel += 20;
-			}
-			if (thirstLevel <= 50) {
-				happinessLevel += 20;
-			}
-			if (activityLevel >= 35) {
-				happinessLevel += 20;
-			}
-			if (!madeAMess) {
-				happinessLevel += 20;
-			}
-
-			// If the pet is really unhappy, then take a little away from the health.
-			// But only if healthLevel is not equal to 0, because we do not want it
-			// to get to a negative level.
-			if (healthLevel != 0) {
-				if (happinessLevel <= 25) {
-					healthLevel -= 10;
-				}
-			}
-			
-
-		}
-
-
-	
-	
 }
