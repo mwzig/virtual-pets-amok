@@ -14,6 +14,7 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 	@Override
 	public void addOil() {
 		currentOilLevel = BEST_OIL_LEVEL;
+		happinessLevel = 100;
 	}
 
 	public double getCurrentOilLevel() {

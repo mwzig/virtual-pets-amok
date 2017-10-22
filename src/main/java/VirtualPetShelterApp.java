@@ -133,7 +133,7 @@ public class VirtualPetShelterApp {
 			if (shelterPet instanceof RoboticCat) {
 				RoboticCat shelterCat = (RoboticCat) (shelterPet);
 				if (shelterCat.needsOil()) {
-					oilLevel = "Needs Oil";
+					oilLevel = " Needs Oil";
 				}
 				displayRoboticCatStatus(shelterCat, oilLevel);
 			}
@@ -183,7 +183,15 @@ public class VirtualPetShelterApp {
 
 	public static void displayRoboticCatStatus(RoboticCat shelterCat, String oilLevel) {
 
-		System.out.printf("%-25s", shelterCat.getName() + " (Robotic-Cat)");
+		double theOilLevel = shelterCat.getCurrentOilLevel();
+		String oilLevelMinDec;
+		if (theOilLevel == (long) theOilLevel) {
+			oilLevelMinDec = String.format("%d", (long) theOilLevel);
+		} else {
+			oilLevelMinDec = String.format("%s", theOilLevel);
+		}
+
+		System.out.printf("%-25s", shelterCat.getName() + " (robotic cat)");
 		System.out.print("|");
 		System.out.printf("%-8s", ""); // hunger level n/a here
 		System.out.print("|");
@@ -191,13 +199,13 @@ public class VirtualPetShelterApp {
 		System.out.print("|");
 		System.out.printf("%-15s", ""); // activity level n/a here
 		System.out.print("|");
-		System.out.printf("%-16s", ""); // lilitterBoxStatus);
+		System.out.printf("%-16s", ""); // litter box status n/a here
 		System.out.print("|");
 		System.out.printf("%-10d", shelterCat.getHappinessLevel());
 		System.out.print("|");
 		System.out.printf("%-7d", shelterCat.getHealthLevel());
 		System.out.print("|");
-		System.out.printf("%-10s", shelterCat.getCurrentOilLevel() + oilLevel);
+		System.out.printf("%-10s", oilLevelMinDec + oilLevel);
 		System.out.println();
 	}
 
@@ -219,14 +227,40 @@ public class VirtualPetShelterApp {
 
 	public static void displayPetNamesAndDescriptions(VirtualPetShelter myShelter) {
 
-		String name = "";
 		Collection<VirtualPet> shelterPets = myShelter.getAllPets();
+
+		// Display cats, dogs, robotic cats, then robotic dogs
+		
 		for (VirtualPet shelterPet : shelterPets) {
-			name = "[" + shelterPet.getName() + "]";
-			System.out.printf("%-15s", name);
-			System.out.printf("%-25s", shelterPet.getDescription());
-			System.out.println();
+			if (shelterPet instanceof OrganicCat) {
+				formatBriefPetInfo(shelterPet, " (cat) ");
+			}
 		}
+		for (VirtualPet shelterPet : shelterPets) {
+			if (shelterPet instanceof OrganicDog) {
+				formatBriefPetInfo(shelterPet, " (dog) ");
+			}
+		}
+		for (VirtualPet shelterPet : shelterPets) {
+			if (shelterPet instanceof RoboticCat) {
+				formatBriefPetInfo(shelterPet, " (robotic cat) ");
+			}
+		}
+		/*
+		for (VirtualPet shelterPet : shelterPets) {
+			if (shelterPet instanceof RoboticDog) {
+				formatBriefPetInfo(shelterPet, " (robotic dog) ");
+			}
+		}*/
+	}
+
+	
+
+	public static void formatBriefPetInfo(VirtualPet shelterPet, String petType) {
+		String name = "[" + shelterPet.getName() + "]";
+		System.out.printf("%-25s", name + petType);
+		System.out.printf("%-25s", shelterPet.getDescription());
+		System.out.println();
 	}
 
 	public static void handlePetActivity(VirtualPetShelter myShelter, String activity) {
@@ -292,6 +326,7 @@ public class VirtualPetShelterApp {
 				myShelter.addPet(new OrganicDog(petName, petDescription));
 				break;
 			case "3":
+				myShelter.addPet(new RoboticCat(petName, petDescription));
 				break;
 			case "4":
 				break;
