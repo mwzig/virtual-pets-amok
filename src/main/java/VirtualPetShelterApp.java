@@ -96,11 +96,19 @@ public class VirtualPetShelterApp {
 		String oilLevel = "";
 
 		System.out.println("This is the status of your Virtual Pets:\n");
-		System.out.println("Name                     |Hunger  |Thirst  |Activity Level |Litter Box/Cage |Happiness |Health |Oil Level");
-		System.out.println("-------------------------|--------|--------|---------------|----------------|----------|-------|-------------");
+		System.out.println(
+				"Name                     |Hunger  |Thirst  |Activity Level |Litter Box/Cage |Happiness |Health |Oil Level");
+		System.out.println(
+				"-------------------------|--------|--------|---------------|----------------|----------|-------|-------------");
 
 		Collection<VirtualPet> shelterPets = myShelter.getAllPets();
 
+		// It is a little nicer to see these displayed by type (cat, dog, roboticCat,
+		// etc..)
+		// In the future, there is probably a more efficient way to do this, but we
+		// would probably need to create another sortable map object first and
+		// potentially
+		// add the type to the object.
 		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof OrganicCat) {
 				OrganicCat shelterCat = (OrganicCat) (shelterPet);
@@ -108,26 +116,28 @@ public class VirtualPetShelterApp {
 					litterBoxStatus = "Needs Cleaning";
 				}
 				displayOrganicCatStatus(shelterCat, litterBoxStatus);
-			} // end of OrganicCat
+			}
+		} // end of OrganicCat
 
+		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof OrganicDog) {
 				OrganicDog shelterDog = (OrganicDog) (shelterPet);
-
 				if (shelterDog.getMadeAMess()) {
 					cageStatus = "Needs Cleaning";
 				}
 				displayOrganicDogStatus(shelterDog, cageStatus);
-			} // end of Organic Dog
+			}
+		} // end of Organic Dog
 
+		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof RoboticCat) {
 				RoboticCat shelterCat = (RoboticCat) (shelterPet);
 				if (shelterCat.needsOil()) {
 					oilLevel = "Needs Oil";
 				}
 				displayRoboticCatStatus(shelterCat, oilLevel);
-			} // end of OrganicCat
-
-		} // end for loop
+			}
+		} // end of OrganicCat
 
 	} // end displayPetStatus()
 
@@ -172,7 +182,7 @@ public class VirtualPetShelterApp {
 	}
 
 	public static void displayRoboticCatStatus(RoboticCat shelterCat, String oilLevel) {
-		
+
 		System.out.printf("%-25s", shelterCat.getName() + " (Robotic-Cat)");
 		System.out.print("|");
 		System.out.printf("%-8s", ""); // hunger level n/a here
