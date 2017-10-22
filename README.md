@@ -1,5 +1,8 @@
 README file for the virtual-pet-shelter project
 
+ (Consider future change to add a type to the VirtualPet to indicate the
+  type of pet to make sorting by pet type more efficient in the user interface).
+ 
  If all pets are adopted, the game ends.  (Assume that paid employees are still
  working in case a pet comes in to be admitted).
  
