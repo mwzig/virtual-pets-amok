@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 public class VirtualPetShelter {
 
 	private Map<String, VirtualPet> pets = new HashMap<String, VirtualPet>();
-	private int litterBoxWasteLevel;
+	private LitterBox catBox = new LitterBox();
 
 	// This method returns a Collection of Virtual Pet objects
 	// It mimics the Pet Shelter's database of Virtual Pets.
@@ -45,21 +45,18 @@ public class VirtualPetShelter {
 
 	public void tick() {
 		int wasteAmount;
-		for (VirtualPet eachPet : getAllPets()) {
-			wasteAmount = eachPet.tick();
-			if (eachPet instanceof OrganicCat) {
-				litterBoxWasteLevel += wasteAmount;
+		for (VirtualPet aPet : getAllPets()) {
+			if (aPet instanceof OrganicCat) {
+				wasteAmount = ((OrganicCat) aPet).tick(catBox);
+				catBox.addWaste(wasteAmount);
+			} else {
+				aPet.tick();
 			}
 		}
 	}
 
-	// If a name is supplied that does not exist, the Virtual Pet object "returned"
-	// will be null. Just to be safe, check it for not null before using it,
-	// otherwise we could potentially crash with a null pointer exception.
-	public void walkAPet(String name) {
-
-		VirtualPet aPet = pets.get(name);
-		if (aPet != null) {
+	public void walkDogs() {
+		for (VirtualPet aPet : getAllPets()) {
 			if (aPet instanceof Dog) {
 				((Dog) aPet).walk();
 			}
@@ -79,13 +76,15 @@ public class VirtualPetShelter {
 	public void cleanCages() {
 		for (VirtualPet aPet : getAllPets()) {
 			if (aPet instanceof OrganicDog) {
-				((OrganicCat) aPet).haveWasteCleanedUp();
+				((OrganicDog) aPet).haveWasteCleanedUp();
 			}
 		}
 	}
 
-	public void emptyLitterBox() {
-		litterBoxWasteLevel = 0;
+	public void cleanLitterBox() {
+		catBox.clean();
+		// this immediately affects the health and happiness
+		// of the cats, so update their state here
 		for (VirtualPet aPet : getAllPets()) {
 			if (aPet instanceof OrganicCat) {
 				((OrganicCat) aPet).haveWasteCleanedUp();

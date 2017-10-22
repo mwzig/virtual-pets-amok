@@ -72,6 +72,20 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 
 	}
 
+	public int tick(LitterBox catBox) {
+
+		hungerLevel += 5;
+		thirstLevel += 5;
+		activityLevel -= 5;
+		System.out.println(catBox.getStatus());
+		// set this variable so that we can use the litter box status to determine 
+		// health and happiness
+		litterBoxClean = catBox.getStatus();
+		determineHealthAndHappinessLevels();
+
+		return generateWaste();
+	}
+
 	// The requirments are quoted below:
 	// "all pets lose health if their happiness drops too low"
 	// "a variable representing overall health that is updated as a result
@@ -121,9 +135,14 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 		}
 
 		// If the pet is really unhappy, then take a little away from the health.
-		if (happinessLevel <= 25) {
-			healthLevel -= 10;
+		// But only if healthLevel is not equal to 0, because we do not want it
+		// to get to a negative level.
+		if (healthLevel != 0) {
+			if (happinessLevel <= 25) {
+				healthLevel -= 10;
+			}
 		}
+		
 
 	}
 

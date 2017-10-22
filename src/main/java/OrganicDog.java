@@ -39,8 +39,8 @@ public class OrganicDog extends Dog implements OrganicPet {
 	}
 
 	@Override
-	public void generateWaste(int wasteAmt) {
-		cageWasteLevel += wasteAmt;
+	public void generateWaste() {
+		cageWasteLevel += excrementAmt;
 
 	}
 
