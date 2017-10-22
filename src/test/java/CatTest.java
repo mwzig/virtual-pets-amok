@@ -52,6 +52,7 @@ public class CatTest {
 		assertEquals(-5, (hpLevelAfter - hpLevelB4));
 	}
 
+	/* commented out - removed the method in the class for better encapsulation
 	@Test
 	public void haveWasteCleanedUpShouldChangeLitterBoxClean() {
 		OrganicCat cat1 = new OrganicCat("fluffy", "white cat");
@@ -60,6 +61,7 @@ public class CatTest {
 		cat1.haveWasteCleanedUp();
 		assertTrue(cat1.getLitterBoxStatus());
 	}
+	*/
 
 	@Test
 	public void playIncreasesActivityLevelTo75() {
@@ -107,40 +109,3 @@ public class CatTest {
 	}
 
 }
-/*
- * this was for when I had a static litter box
- * 
- * @Test public void generateWasteToOneLitterBox() { OrganicCat cat1 = new
- * OrganicCat("fluffy", "white cat"); cat1.generateWaste(5); int check1 =
- * cat1.getLitterBoxWasteLevel(); assertEquals(check1, 5); OrganicCat cat2 = new
- * OrganicCat("muffy", "grey cat"); cat2.generateWaste(15); // test by using the
- * first object check1 = cat1.getLitterBoxWasteLevel(); assertEquals(20,
- * check1);
- * 
- * }
- */
-
-/*
- * }
- * 
- * // this tests the polymorphism - all doctors are hospital employees
- * 
- * @Test public void assertThatDoctorIsAHospitalEmployee() { HospitalEmployee
- * underTest = new Doctor("", "", ""); assertNotNull(underTest); }
- * 
- * @Test public void shouldBeAbleToCreateNurstObject() { Nurse underTest = new
- * Nurse("", "", 0); assertNotNull(underTest);
- * 
- * }
- * 
- * // this tests the polymorphism - all doctors are hospital employees
- * 
- * @Test public void assertThatNurseIsAHospitalEmployee() { HospitalEmployee
- * underTest = new Nurse("", "", 0); assertNotNull(underTest); }
- * 
- * @Test public void assertThatPatientHealthIs20() { Doctor underTest = new
- * Doctor("", "", ""); int check = underTest.careForPatient();
- * assertEquals(check, 20);
- * 
- * }
- */

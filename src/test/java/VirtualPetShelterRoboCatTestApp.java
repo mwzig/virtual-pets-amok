@@ -17,11 +17,11 @@ public class VirtualPetShelterRoboCatTestApp {
 		myShelter.addPet(kitty2);
 
 		System.out.println("Inital status");
-		
-		for (VirtualPet shelterCat: myShelter.getAllPets()) {
+
+		for (VirtualPet shelterCat : myShelter.getAllPets()) {
 			displayRoboticCatStatus((RoboticCat) shelterCat);
 		}
-		
+
 		System.out.println();
 
 		for (int i = 1; i < 6; i++) {
@@ -30,7 +30,7 @@ public class VirtualPetShelterRoboCatTestApp {
 		}
 
 		System.out.println("After 5 ticks");
-		for (VirtualPet shelterCat: myShelter.getAllPets()) {
+		for (VirtualPet shelterCat : myShelter.getAllPets()) {
 			displayRoboticCatStatus((RoboticCat) shelterCat);
 		}
 		System.out.println();
@@ -41,7 +41,7 @@ public class VirtualPetShelterRoboCatTestApp {
 		}
 
 		System.out.println("After 10 ticks");
-		for (VirtualPet shelterCat: myShelter.getAllPets()) {
+		for (VirtualPet shelterCat : myShelter.getAllPets()) {
 			displayRoboticCatStatus((RoboticCat) shelterCat);
 		}
 		System.out.println();
@@ -52,7 +52,7 @@ public class VirtualPetShelterRoboCatTestApp {
 		}
 
 		System.out.println("After 15 ticks");
-		for (VirtualPet shelterCat: myShelter.getAllPets()) {
+		for (VirtualPet shelterCat : myShelter.getAllPets()) {
 			displayRoboticCatStatus((RoboticCat) shelterCat);
 		}
 		System.out.println();
@@ -80,7 +80,7 @@ public class VirtualPetShelterRoboCatTestApp {
 		System.out.print("|");
 		System.out.printf("%-10d", shelterCat.getHealthLevel());
 		System.out.print("|");
-		System.out.printf("%-10s", shelterCat.getCurrentOilLevel() + roboPetNeedsOil );
+		System.out.printf("%-10s", shelterCat.getCurrentOilLevel() + roboPetNeedsOil);
 		System.out.println();
 	}
 } // end class

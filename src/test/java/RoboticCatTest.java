@@ -49,7 +49,6 @@ public class RoboticCatTest {
 		}
 		double hpLevelAfter = cat1.getCurrentOilLevel();
 		assertEquals(0.0, (hpLevelAfter - hpLevelB4), .01);
-
 	}
 
 }
