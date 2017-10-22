@@ -143,6 +143,7 @@ public class VirtualPetShelterApp {
 		} // end of OrganicCat
 
 		oilLevel = "";
+		
 		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof RoboticDog) {
 				RoboticDog shelterDog = (RoboticDog) (shelterPet);

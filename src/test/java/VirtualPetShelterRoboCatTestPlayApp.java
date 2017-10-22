@@ -77,7 +77,7 @@ public class VirtualPetShelterRoboCatTestPlayApp {
 		System.out.print("|");
 		System.out.printf("%-15s", ""); // activity level n/a here
 		System.out.print("|");
-		System.out.printf("%-16s", ""); // lilitterBoxStatus);
+		System.out.printf("%-16s", ""); // litterBoxStatus);
 		System.out.print("|");
 		System.out.printf("%-10d", shelterCat.getHappinessLevel());
 		System.out.print("|");

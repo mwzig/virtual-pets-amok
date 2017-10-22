@@ -4,7 +4,7 @@ public class VirtualPetShelterCatTestApp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 		OrganicCat kitty = new OrganicCat("Fluffy", "very furry cat");
 		System.out.println(kitty);
 
@@ -24,16 +24,16 @@ public class VirtualPetShelterCatTestApp {
 			myShelter.tick();
 			System.out.println("LitterBoxWasteLevel = : " + myShelter.getLitterBoxWasteLevel());
 		}
-		
+
 		System.out.println("After 5 ticks");
 		displayPetStatus(myShelter);
 		System.out.println();
-		
+
 		for (int i = 1; i < 6; i++) {
 			myShelter.tick();
 			System.out.println("LitterBoxWasteLevel = : " + myShelter.getLitterBoxWasteLevel());
 		}
-		
+
 		System.out.println("After 10 ticks");
 		displayPetStatus(myShelter);
 		System.out.println();
@@ -42,11 +42,10 @@ public class VirtualPetShelterCatTestApp {
 			myShelter.tick();
 			System.out.println("LitterBoxWasteLevel = : " + myShelter.getLitterBoxWasteLevel());
 		}
-		
+
 		System.out.println("After 15 ticks");
 		displayPetStatus(myShelter);
 		System.out.println();
-
 
 	}
 
@@ -61,13 +60,13 @@ public class VirtualPetShelterCatTestApp {
 		Collection<VirtualPet> shelterPets = myShelter.getAllPets();
 
 		for (VirtualPet shelterPet : shelterPets) {
-			if (shelterPet instanceof OrganicCat)  {
-				OrganicCat shelterCat = (OrganicCat)(shelterPet);
-	
-				if (!shelterCat.getLitterBoxStatus())  {
+			if (shelterPet instanceof OrganicCat) {
+				OrganicCat shelterCat = (OrganicCat) (shelterPet);
+
+				if (!shelterCat.getLitterBoxStatus()) {
 					litterBoxStatus = "Dirty";
 				}
-				
+
 				System.out.printf("%-15s", shelterCat.getName());
 				System.out.print("|");
 				System.out.printf("%-8d", shelterCat.getHungerLevel());
@@ -82,7 +81,7 @@ public class VirtualPetShelterCatTestApp {
 				System.out.print("|");
 				System.out.printf("%-10d", shelterCat.getHealthLevel());
 				System.out.println();
-			}  // end of OrganicCat
+			} // end of OrganicCat
 		} // end for loop
 
 	} // end displayPetStatus()
