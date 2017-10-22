@@ -21,7 +21,7 @@ public class OrganicDog extends Dog implements OrganicPet {
 	}
 
 	public OrganicDog(String name, String desc, int happinessLevel, int healthLevel, int hungerLevel, int thirstLevel,
-			int exrementAmount) {
+			int excrementAmount) {
 		super(name, desc, happinessLevel, healthLevel);
 		this.hungerLevel = hungerLevel;
 		this.thirstLevel = thirstLevel;

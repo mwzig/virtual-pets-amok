@@ -1,5 +1,7 @@
 import java.util.Collection;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 
 public class VirtualPetShelterApp {
 
@@ -9,7 +11,7 @@ public class VirtualPetShelterApp {
 		myShelter.addPet(new OrganicCat("Fluffy", "the very furry cat"));
 		myShelter.addPet(new OrganicCat("Buffy", "the vampire cat"));
 
-		myShelter.addPet(new OrganicDog("Fifi", "the silly dog"));
+		myShelter.addPet(new OrganicDog("Fifi", "very large, silly dog", 100, 100, 25, 25, 10));
 		myShelter.addPet(new OrganicDog("Fido", "watch out- he bites"));
 
 		myShelter.addPet(new RoboticCat("Henry", "large and creaky"));
@@ -89,7 +91,6 @@ public class VirtualPetShelterApp {
 
 		} while (!userOption.equals("11"));
 		input.close();
-
 	}
 
 	public static void displayPetStatus(VirtualPetShelter myShelter) {
@@ -97,8 +98,16 @@ public class VirtualPetShelterApp {
 		String litterBoxStatus = "Clean";
 		String cageStatus = "Clean";
 		String oilLevel = "";
+		Set<Entry<String, Integer>> cageWasteList;
 
 		System.out.println("The shelter's litter box waste level is: " + myShelter.getLitterBoxWasteLevel());
+		System.out.println("The shelter's level of waste in dog cages is: " + myShelter.getDogWasteAmount());
+
+		cageWasteList = myShelter.getCageWasteList();
+		for (Entry<String, Integer> entry : cageWasteList) {
+			System.out.println("\t" + entry.getKey() + "'s cage: " + entry.getValue());
+		}
+
 		System.out.println("This is the status of your Virtual Pets:\n");
 		System.out.println(
 				"Name                     |Hunger  |Thirst  |Activity Level |Litter Box/Cage |Happiness |Health |Oil Level");
@@ -110,14 +119,15 @@ public class VirtualPetShelterApp {
 		// It is a little nicer to see these displayed by type (cat, dog, roboticCat,
 		// etc..)
 		// In the future, there is probably a more efficient way to do this, but we
-		// would probably need to create another sortable map object first and
-		// potentially
-		// add the type to the object.
+		// would probably need to create another sort-able map object first and
+		// potentially add the type to the object.
 		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof OrganicCat) {
 				OrganicCat shelterCat = (OrganicCat) (shelterPet);
 				if (!shelterCat.getLitterBoxStatus()) {
 					litterBoxStatus = "Needs Cleaning";
+				} else {
+					litterBoxStatus = "Clean";
 				}
 				displayOrganicCatStatus(shelterCat, litterBoxStatus);
 			}
@@ -128,6 +138,8 @@ public class VirtualPetShelterApp {
 				OrganicDog shelterDog = (OrganicDog) (shelterPet);
 				if (shelterDog.getMadeAMess()) {
 					cageStatus = "Needs Cleaning";
+				} else {
+					cageStatus = "Clean";
 				}
 				displayOrganicDogStatus(shelterDog, cageStatus);
 			}
@@ -138,19 +150,22 @@ public class VirtualPetShelterApp {
 				RoboticCat shelterCat = (RoboticCat) (shelterPet);
 				if (shelterCat.needsOil()) {
 					oilLevel = " Needs Oil";
+				} else {
+					oilLevel = "";
 				}
 				displayRoboticCatStatus(shelterCat, oilLevel);
 			}
-		} // end of OrganicCat
+		} // end of RoboticCat
 
-		oilLevel = "";
-		
 		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof RoboticDog) {
 				RoboticDog shelterDog = (RoboticDog) (shelterPet);
 				if (shelterDog.needsOil()) {
 					oilLevel = " Needs Oil";
+				} else {
+					oilLevel = "";
 				}
+
 				displayRoboticDogStatus(shelterDog, oilLevel);
 			}
 		} // end of RoboticDog
@@ -269,12 +284,11 @@ public class VirtualPetShelterApp {
 		System.out.println("\t11. Quit");
 	}
 
+	// Display cats, dogs, robotic cats, then robotic dogs
 	public static void displayPetNamesAndDescriptions(VirtualPetShelter myShelter) {
 
 		Collection<VirtualPet> shelterPets = myShelter.getAllPets();
 
-		// Display cats, dogs, robotic cats, then robotic dogs
-		
 		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof OrganicCat) {
 				formatBriefPetInfo(shelterPet, " (cat) ");
@@ -297,8 +311,6 @@ public class VirtualPetShelterApp {
 		}
 	}
 
-	
-
 	public static void formatBriefPetInfo(VirtualPet shelterPet, String petType) {
 		String name = "[" + shelterPet.getName() + "]";
 		System.out.printf("%-25s", name + petType);
@@ -320,7 +332,6 @@ public class VirtualPetShelterApp {
 			myShelter.playWithAPet(petName);
 			System.out.println("Thanks for playing with " + petName + "!\n\n");
 		}
-
 	}
 
 	public static void handlePetAdoption(VirtualPetShelter myShelter) {
@@ -337,7 +348,6 @@ public class VirtualPetShelterApp {
 			myShelter.releasePet(petName);
 			System.out.println(petName + " is going to a great home!\n\n");
 		}
-
 	}
 
 	public static void handlePetAdmission(VirtualPetShelter myShelter) {
@@ -379,7 +389,6 @@ public class VirtualPetShelterApp {
 			}
 			System.out.println("Don't worry, we will find a great home for " + petName + "!\n\n");
 		}
-
 	}
 
 }

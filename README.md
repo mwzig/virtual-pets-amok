@@ -16,20 +16,25 @@ README file for the virtual-pet-shelter project
      immediately after feeding or watering.
    
  For organic dogs:
-   - they will need to pee after they are watered, and poop after they are fed.
+   - They will need to pee after they are watered, and poop after they are fed.
  
-   -To get a Cage Status to be "Dirty", an organic dog must need to both pee and poop, and activity
-    level must be less than 33.   
+   - To get a Cage Status to be "Dirty", an organic dog must need to both pee and poop, and activity
+     level must be less than 33.   
 
-   -If you clean their cage, they will be let outside and not need to pee or poop.
-   -If you walk them, they will not need to pee or poop.
+   - If you clean their cage, they will be let outside and not need to pee or poop.
+   - If you walk them, they will not need to pee or poop.
  
-   -Just playing with them does NOT change their need to pee or poop.
+   - Just playing with them does NOT change their need to pee or poop.
  
    - If hunger level is 50 or higher, he or she is hungry.
    - If thirst level is 50 or higher, he or she is thirsty.
    - If activity level is less than 33, he or she needs activity.
    
+   - Fifi, contrary to her name, is a very large dog.  Her waste amount is 10.
+   - Fido's waste amount is 1.  If there is a mess in their cages, then that is how
+     much waste each generates (11 total).
+   - The app displays the total amount of waste in dog cages above the table
+     of status values.
    
   
   
