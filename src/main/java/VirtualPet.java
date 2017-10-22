@@ -22,8 +22,7 @@ public abstract class VirtualPet {
 
 	abstract int tick();
 
-	public void play() {
-		happinessLevel += 5;
+	public void  play() {	
 	}
 
 	@Override
