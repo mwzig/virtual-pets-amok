@@ -1,19 +1,21 @@
 
 public class LitterBox {
 
-	private int wasteAmount = 0;
+	private int wasteAmount;
+	private static final int MAX_WASTE_FOR_CLEANLINESS = 40;
 
 	public LitterBox() {
+		wasteAmount = 0;
 	}
 
 	public boolean getStatus() {
-		if (wasteAmount <= 40) {
+		if (wasteAmount <= MAX_WASTE_FOR_CLEANLINESS) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public int getWasteAmount() {
 		return wasteAmount;
 	}
@@ -21,7 +23,7 @@ public class LitterBox {
 	public void addWaste(int amount) {
 		wasteAmount += amount;
 	}
-	
+
 	public void clean() {
 		wasteAmount = 0;
 	}

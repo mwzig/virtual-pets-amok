@@ -11,29 +11,31 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 		currentOilLevel = BEST_OIL_LEVEL;
 	}
 
-	// overrides the RoboticPet Interface method
+	// Overrides for the three RoboticPet Interface methods:
 	@Override
 	public void addOil() {
 		currentOilLevel = BEST_OIL_LEVEL;
 		happinessLevel = MAX_HAPPINESS_LEVEL;
 	}
 
+	@Override
 	public double getCurrentOilLevel() {
 		return currentOilLevel;
 	}
 
+	@Override
 	public boolean needsOil() {
 		return (currentOilLevel <= MIN_OIL_LEVEL);
 	}
 
-	// overrides the VirtualPet method
+	// overrides the VirtualPet's method
 	@Override
 	int tick() {
 		determineHealthAndHappinessLevels();
 		return 0;
 	}
 
-	// overrides the VirtualPet method
+	// overrides the VirtualPet's method
 	@Override
 	public void play() {
 		happinessLevel = MAX_HAPPINESS_LEVEL;
@@ -43,15 +45,12 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 	}
 
 	// The requirements say "Robotic pets only lose health if not oiled regularly".
-	public void determineHealthAndHappinessLevels() {
-
+	// Determine health based on oil level. The ideal oil level is 50, so
+	// calculate a percentage based on current oil level: (current oil level/ideal
+	// oil level) * 100
+	private void determineHealthAndHappinessLevels() {
 		Double health = 0.0;
-
-		// First, determine health based on oil level. The ideal oil level is 50, so
-		// calculate a percentage based on current oil level: (current oil level/ideal
-		// oil level) * 100
-		health = (currentOilLevel / BEST_OIL_LEVEL);
-		health *= 100;
+		health = (currentOilLevel / BEST_OIL_LEVEL) * 100;
 		healthLevel = health.intValue();
 
 		// Overall health influences happiness.

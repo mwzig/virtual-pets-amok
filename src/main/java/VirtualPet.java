@@ -25,12 +25,7 @@ public abstract class VirtualPet {
 	public void  play() {	
 	}
 
-	@Override
-	public String toString() {
-		return "Name: " + name + " " + "Description: " + description + " " + " HappinessLevel: " + happinessLevel
-				+ " HealthLevel: " + healthLevel;
-	}
-
+	
 	public int getHappinessLevel() {
 		return happinessLevel;
 	}
@@ -53,6 +48,12 @@ public abstract class VirtualPet {
 
 	public String getDescription() {
 		return description;
+	}
+
+	@Override
+	public String toString() {
+		return "Name: " + name + " " + "Description: " + description + " " + " HappinessLevel: " + happinessLevel
+				+ " HealthLevel: " + healthLevel;
 	}
 
 }
