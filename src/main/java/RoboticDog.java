@@ -1,12 +1,12 @@
 
-public class RoboticCat extends VirtualPet implements RoboticPet {
+public class RoboticDog extends Dog implements RoboticPet {
 
 	private double currentOilLevel;
 	public static final int BEST_OIL_LEVEL = 50;
 	public static final int MAX_HAPPINESS_LEVEL = 100;
 	public static final int MIN_OIL_LEVEL = 25;
 
-	public RoboticCat(String name, String desc) {
+	public RoboticDog(String name, String desc) {
 		super(name, desc);
 		currentOilLevel = BEST_OIL_LEVEL;
 	}
@@ -42,6 +42,15 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 		}
 	}
 
+	// overrides the Dog class method
+	@Override 
+	void walk() {
+		happinessLevel = MAX_HAPPINESS_LEVEL;
+		if (currentOilLevel != 0) {
+			currentOilLevel -= 5;
+		}
+	}
+
 	// The requirements say "Robotic pets only lose health if not oiled regularly".
 	public void determineHealthAndHappinessLevels() {
 
@@ -60,4 +69,5 @@ public class RoboticCat extends VirtualPet implements RoboticPet {
 		}
 	}
 
+	
 }

@@ -9,11 +9,14 @@ public class VirtualPetShelterApp {
 		myShelter.addPet(new OrganicCat("Fluffy", "the very furry cat"));
 		myShelter.addPet(new OrganicCat("Buffy", "the vampire cat"));
 
-		myShelter.addPet(new OrganicDog("Fido", "the silly dog"));
-		myShelter.addPet(new OrganicDog("Rufus", "watch out- he bites"));
+		myShelter.addPet(new OrganicDog("Fifi", "the silly dog"));
+		myShelter.addPet(new OrganicDog("Fido", "watch out- he bites"));
 
-		myShelter.addPet(new RoboticCat("Henry", "large, creaky fellow"));
+		myShelter.addPet(new RoboticCat("Henry", "large and creaky"));
 		myShelter.addPet(new RoboticCat("Harriet", "small and sneaky"));
+
+		myShelter.addPet(new RoboticDog("Spot", "chases a flashlight"));
+		myShelter.addPet(new RoboticDog("Spike", "has some sharp edges"));
 
 		displayWelcomeMessage();
 		handleVolunteerActions(myShelter);
@@ -139,6 +142,17 @@ public class VirtualPetShelterApp {
 			}
 		} // end of OrganicCat
 
+		oilLevel = "";
+		for (VirtualPet shelterPet : shelterPets) {
+			if (shelterPet instanceof RoboticDog) {
+				RoboticDog shelterDog = (RoboticDog) (shelterPet);
+				if (shelterDog.needsOil()) {
+					oilLevel = " Needs Oil";
+				}
+				displayRoboticDogStatus(shelterDog, oilLevel);
+			}
+		} // end of RoboticDog
+
 	} // end displayPetStatus()
 
 	public static void displayOrganicCatStatus(OrganicCat shelterCat, String litterBoxStatus) {
@@ -209,6 +223,34 @@ public class VirtualPetShelterApp {
 		System.out.println();
 	}
 
+	public static void displayRoboticDogStatus(RoboticDog shelterDog, String oilLevel) {
+
+		double theOilLevel = shelterDog.getCurrentOilLevel();
+		String oilLevelMinDec;
+		if (theOilLevel == (long) theOilLevel) {
+			oilLevelMinDec = String.format("%d", (long) theOilLevel);
+		} else {
+			oilLevelMinDec = String.format("%s", theOilLevel);
+		}
+
+		System.out.printf("%-25s", shelterDog.getName() + " (robotic dog)");
+		System.out.print("|");
+		System.out.printf("%-8s", ""); // hunger level n/a here
+		System.out.print("|");
+		System.out.printf("%-8s", ""); // thirst level n/a here
+		System.out.print("|");
+		System.out.printf("%-15s", ""); // activity level n/a here
+		System.out.print("|");
+		System.out.printf("%-16s", ""); // litter box status n/a here
+		System.out.print("|");
+		System.out.printf("%-10d", shelterDog.getHappinessLevel());
+		System.out.print("|");
+		System.out.printf("%-7d", shelterDog.getHealthLevel());
+		System.out.print("|");
+		System.out.printf("%-10s", oilLevelMinDec + oilLevel);
+		System.out.println();
+	}
+
 	public static void displayMainMenu() {
 
 		System.out.println("\nWhat would you like to do next?\n");
@@ -246,12 +288,11 @@ public class VirtualPetShelterApp {
 				formatBriefPetInfo(shelterPet, " (robotic cat) ");
 			}
 		}
-		/*
 		for (VirtualPet shelterPet : shelterPets) {
 			if (shelterPet instanceof RoboticDog) {
 				formatBriefPetInfo(shelterPet, " (robotic dog) ");
 			}
-		}*/
+		}
 	}
 
 	
@@ -329,6 +370,7 @@ public class VirtualPetShelterApp {
 				myShelter.addPet(new RoboticCat(petName, petDescription));
 				break;
 			case "4":
+				myShelter.addPet(new RoboticDog(petName, petDescription));
 				break;
 			default:
 				System.out.println("Sorry, you  must enter a valid pet type (1-4).");
