@@ -1,12 +1,10 @@
-import java.util.Random;
-
 public class OrganicCat extends VirtualPet implements OrganicPet {
 
 	private int hungerLevel;
 	private int thirstLevel;
 	private int activityLevel;
 	private int excrementAmount;
-	private boolean litterBoxClean = true;
+	private boolean environmentClean = true;
 
 	public OrganicCat(String name, String desc) {
 		super(name, desc);
@@ -53,26 +51,8 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 		return generateWaste();
 	}
 
-	// The specs indicate that the state of the litter box affects the health of
-	// the cats. We also have to return the amount of waste.
-	// We need a special tick method that lets us find the litter box status so
-	// we can use it as part of our calculation for determining health and
-	// happiness.
-	// To accomplish these things, the caller of this method passes the litter
-	// box object so we can use it to determine its cleanliness level.
-	// Since we need to override the tick() method with no parameter, we then
-	// call the tick() method after this to do our regular calculations.
-	// This is coded to be as close to meeting the specs as possible.
-	// It does result in a little timing thing - the cat generates waste that
-	// goes into the status of the litter box <after> it gets its status of the box.
-	// A potential change - if specs would allow - would be to change logic so the 
-	// cat generates waste into the litter box in this method (rather than having
-	// the shelter class do that), and then getting the status of the box.
-	// Then, you could have a cage object for the organic dogs, and pass that cage
-	// object to the dog's tick method.
-	public int tick(LitterBox catBox) {
-		litterBoxClean = catBox.getStatus();
-		return tick();
+	public void setEnvironmentClean(boolean clean) {
+		environmentClean = clean;
 	}
 
 	// The requirements are quoted below:
@@ -101,7 +81,7 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 		if (activityLevel >= 10) {
 			healthLevel += 25;
 		}
-		if (litterBoxClean) {
+		if (environmentClean) {
 			healthLevel += 25;
 		}
 
@@ -119,7 +99,7 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 		if (activityLevel >= 35) {
 			happinessLevel += 20;
 		}
-		if (litterBoxClean) {
+		if (environmentClean) {
 			happinessLevel += 20;
 		}
 
@@ -153,11 +133,11 @@ public class OrganicCat extends VirtualPet implements OrganicPet {
 
 	@Override
 	public void haveWasteCleanedUp() {
-		litterBoxClean = true;
+		environmentClean = true;
 	}
 
 	public boolean getLitterBoxStatus() {
-		return litterBoxClean;
+		return environmentClean;
 	}
 
 	public int getHungerLevel() {

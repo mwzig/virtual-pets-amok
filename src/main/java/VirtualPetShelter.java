@@ -105,7 +105,8 @@ public class VirtualPetShelter {
 
 		for (VirtualPet aPet : getAllPets()) {
 			if (aPet instanceof OrganicCat) {
-				catWasteAmount = ((OrganicCat) aPet).tick(shelterLitterBox);
+				((OrganicCat) aPet).setEnvironmentClean(shelterLitterBox.getStatus());
+				catWasteAmount = ((OrganicCat) aPet).tick();
 				shelterLitterBox.addWaste(catWasteAmount);
 			} else if (aPet instanceof OrganicDog) {
 				singleDogWasteAmount = ((OrganicDog) aPet).tick();

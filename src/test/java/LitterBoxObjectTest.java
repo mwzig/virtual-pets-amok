@@ -12,7 +12,8 @@ public class LitterBoxObjectTest {
 		LitterBox catBox = new LitterBox();
 
 		for (int i = 1; i < 10; i++) {
-			int wasteAmt = kitty.tick(catBox);
+
+			int wasteAmt = kitty.tick();
 			catBox.addWaste(wasteAmt);
 		}
 
