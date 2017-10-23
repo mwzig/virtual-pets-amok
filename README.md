@@ -40,5 +40,15 @@ README file for the virtual-pet-shelter project
      of status values.
    
   
-  
-	
+    Some comments copied from the Organic Cat class tick() method regarding possible future changes:
+	// This is coded to be as close to meeting the specs as possible.
+	// It does result in a little timing thing - the cat generates waste that
+	// goes into the status of the litter box <after> it gets its status of the box.
+	// A potential change - if specs would allow - would be to change logic so the 
+	// cat generates waste into the litter box in this method (rather than having
+	// the shelter class do that), and then getting the status of the box.
+	// Then, you could have a cage object for the organic dogs, and pass that cage
+	// object to the dog's tick method.
+	- basically this means we pass the litter box to the cat on the tick method, have it
+	 call the litterbox.addWaste method right there rather than having the Shelter method
+	 do that.  Same thing for dogs, but with a cage.
